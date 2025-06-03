@@ -133,7 +133,7 @@ Config.Anim = {
             }
         }
     },
-    ["pescado"] = {
+    ["fish"] = {
         dict = "amb_camp@world_player_fire_cook_knife@male_a@wip_base",
         name = "wip_base",
         flag = 17,
