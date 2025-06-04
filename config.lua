@@ -6,10 +6,17 @@ Config.Prompt = {
     distance = 2.0                  -- Distance at which the prompt activates
 }
 
+Config.Prompt2 = {
+    key = `INPUT_INTERACT_OPTION1`, -- Change this key as needed
+    text = "Crafting Menu",         -- Custom prompt text
+    distance = 2.0                  -- Distance at which the prompt activates
+}
+
 Config.Text = {
     notifyTitle      = "Crafting",
     notifyNoJob      = "You don't have the necessary job",
     menuTitle        = "Preparation Menu",
+    menuCategory     = "Select a category",
     menuSubtext      = "Select an item to craft",
     inputButton      = "Confirm",
     inputPlaceholder = "Amount to craft",
@@ -20,8 +27,8 @@ Config.Text = {
     notSpace         = "You don't have enough space",
     sucCess          = "Successful Crafting",
     ipInvalid        = "Invalid crafting type",
+    proCessing       = "Processing",
 }
-
 
 Config.CraftTime = 10000
 
@@ -32,7 +39,6 @@ Config.BlipZone = {
     {coords = vector3(2640.24, -1228.82, 53.38), blips = 1879260108, blipsName = "Foundry Saint Denis"},   -- Saint Denis Saloon
     -- add more blips to mark the crafting area
 }
-
 
 Config.CraftingZones = {
     [1] = {
@@ -52,6 +58,7 @@ Config.CraftingZones = {
                             -- name = item name in the DB -- label = name shown in the menu -- count = required amount -- image = image shown in the menu
                             {name = "bread", label = "Bread", count = 1, image = "bread.png"}, 
                             {name = "water", label = "Water", count = 2, image = "water.png"},
+                            -- Add the necessary items for the recipe.
                         },
                         Reward = {
                             -- name = item name in the DB -- count = amount of rewards -- image = image shown in the menu
@@ -67,6 +74,105 @@ Config.CraftingZones = {
     -- add more crafting zones by continuing with [2]
 }
 
+Config.CraftingProps = {
+    {
+        Category = false, -- Category name is associated with the prop --If it's false, only the items will be shown in a list. If Category = 'Tools', the category will appear with the items inside.
+        Items = {
+            {
+                Text = "Roasted Chicken",
+                Type = "item",
+                Animation = 'knifecooking',
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "bird", label = "bird meat", count = 1, image = "bird.png"},
+                    -- Add the necessary items for the recipe.
+                },
+                Reward = {
+                    {name = "consumable_meat_plump_bird_cooked", count = 1, image = "consumable_meat_plump_bird_cooked.png"}
+                },
+            },
+            {
+                Text = "Grilled Meat",
+                Type = "item",
+                Animation = 'knifecooking',
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "meat", label = "Meat", count = 1, image = "meat.png"},
+                    -- Add the necessary items for the recipe.
+                },
+                Reward = {
+                    {name = "consumable_meat_pork_cooked", count = 1, image = "consumable_meat_pork_cooked.png"}
+                },
+            },
+            {
+                Text = "Grilled Snake",
+                Type = "item",
+                Animation = 'knifecooking',
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "provision_meat_herptile", label = "Reptile Meat", count = 1, image = "provision_meat_herptile.png"},
+                },
+                Reward = {
+                    {name = "consumable_meat_snake_cooked", count = 1, image = "consumable_meat_snake_cooked.png"}
+                },
+            },
+            {
+                Text = "Grilled Fish",
+                Type = "item",
+                Animation = 'pescado',
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "fishmeat", label = "Fish Meat", count = 1, image = "fishmeat.png"},
+                },
+                Reward = {
+                    {name = "consumable_meat_fish_gritty_cooked", count = 1, image = "consumable_meat_fish_gritty_cooked.png"}
+                },
+            },
+            {
+                Text = "Grilled Beef",
+                Type = "item",
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "beef", label = "Beef", count = 1, image = "beef.png"},
+                },
+                Animation = 'knifecooking',
+                Reward = {
+                    {name = "consumable_meat_beef_cooked", count = 1, image = "consumable_meat_beef_cooked.png"}
+                },
+            },
+            {
+                Text = "Grilled Alligator Skewers",
+                Type = "item",
+                Animation = 'knifecooking',
+                props = {"p_campfire05x", "p_campfire04x", "s_cookfire01x", "p_campfire01x"},
+                Items = {
+                    {name = "aligatormeat", label = "Alligator Meat", count = 1, image = "aligatormeat.png"},
+                },
+                Reward = {
+                    {name = "consumable_meat_alligator_cooked", count = 1, image = "consumable_meat_alligator_cooked.png"}
+                },
+            },
+        }
+    },
+    -- {
+    --     Category = "Tools",  -- If Category = 'Tools', the category will appear with the items inside.
+    --     Items = {
+    --         {
+    --             Text = "",
+    --             Type = "", -- crafting type: item or weapon
+    --             Animation = 'craft',
+    --             props =  {""},
+    --             Items = {
+    --                 {name = "", label = "", count = 1, image = ".png"},
+    --                 --  Add the necessary items for the recipe.
+    --             },
+    --             Reward = {
+    --                 {name = "", count = 1, image = ".png"}
+    --             },
+    --         },
+    --     }
+    -- },
+}
 
 Config.Anim = {
     ["craft"] = { --Default Animation
@@ -133,7 +239,7 @@ Config.Anim = {
             }
         }
     },
-    ["fish"] = {
+    ["pescado"] = {
         dict = "amb_camp@world_player_fire_cook_knife@male_a@wip_base",
         name = "wip_base",
         flag = 17,
