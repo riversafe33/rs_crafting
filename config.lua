@@ -163,11 +163,11 @@ Config.CraftingProps = {
     --             Animation = 'craft',
     --             props =  {""},
     --             Items = {
-    --                 {name = "", label = "", count = 1, image = ".png"},
+    --                 {name = "", label = "", count = 1, image = "".png"},
     --                 --  Add the necessary items for the recipe.
     --             },
     --             Reward = {
-    --                 {name = "", count = 1, image = ".png"}
+    --                 {name = "", count = 1, image = "".png"}
     --             },
     --         },
     --     }
