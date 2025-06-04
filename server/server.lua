@@ -124,3 +124,80 @@ AddEventHandler("rs_crafting:finishCrafting", function(craftable, countz)
 
     Core.NotifyLeft(_source, Config.Text.notifyTitle, Config.Text.sucCess, "generic_textures", "tick", 4000, "COLOR_GREEN")
 end)
+
+
+
+RegisterNetEvent("rs_crafting:startPropCrafting", function(craftable, countz)
+    local _source = source
+    local inventory = exports.vorp_inventory:getUserInventoryItems(_source)
+    if not inventory then return end
+
+    local requiredItems = {}
+
+    for _, item in ipairs(craftable.Items) do
+        requiredItems[item.name] = { required = item.count * countz, found = 0 }
+    end
+
+    for _, value in pairs(inventory) do
+        if requiredItems[value.name] then
+            requiredItems[value.name].found = requiredItems[value.name].found + value.count
+        end
+    end
+
+    for _, req in pairs(requiredItems) do
+        if req.found < req.required then
+            Core.NotifyLeft(_source, Config.Text.notifyTitle, Config.Text.notMaterials, "menu_textures", "cross", 3000, "COLOR_RED")
+            return
+        end
+    end
+
+    local canCarryItems = true
+
+    for _, reward in ipairs(craftable.Reward) do
+        if craftable.Type == "weapon" then
+            canCarryItems = exports.vorp_inventory:canCarryWeapons(_source, reward.count * countz, nil, reward.name)
+        else
+
+            exports.vorp_inventory:canCarryItem(_source, reward.name, reward.count * countz, function(canCarry)
+                if not canCarry then
+                    canCarryItems = false
+                end
+            end)
+        end
+        if not canCarryItems then break end
+    end
+
+    if not canCarryItems then
+        Core.NotifyLeft(_source, Config.Text.notifyTitle, Config.Text.notSpace, "menu_textures", "cross", 3000, "COLOR_RED")
+        return
+    end
+
+    for _, item in ipairs(craftable.Items) do
+        exports.vorp_inventory:subItem(_source, item.name, item.count * countz)
+    end
+
+    TriggerClientEvent("rs_crafting:craftable", _source, craftable.Animation, craftable, countz)
+end)
+
+
+
+RegisterNetEvent("rs_crafting:animationComplete")
+AddEventHandler("rs_crafting:animationComplete", function(craftable, countz)
+    local _source = source
+    local character = Core.getUser(_source).getUsedCharacter
+    if not character then return end
+
+    for _, reward in ipairs(craftable.Reward) do
+        if craftable.Type == "weapon" then
+            for _ = 1, countz do
+                for _ = 1, reward.count do
+                    exports.vorp_inventory:createWeapon(_source, reward.name, {}, {})
+                end
+            end
+        else
+            exports.vorp_inventory:addItem(_source, reward.name, reward.count * countz)
+        end
+    end
+
+    Core.NotifyLeft(_source, Config.Text.notifyTitle, Config.Text.sucCess, "generic_textures", "tick", 4000, "COLOR_GREEN")
+end)
