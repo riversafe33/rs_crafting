@@ -36,7 +36,7 @@ Config.ShowBlip = true -- Config.ShowBlip = false blips are not displayed on the
 Config.BlipZone = {
     -- Location for crafting enterprise
     {coords = vector3(-314.34, 809.98, 118.98),  blips = 1879260108, blipsName = "Valentine Saloon"},      -- Valentine Saloon
-    {coords = vector3(2640.24, -1228.82, 53.38), blips = 1879260108, blipsName = "Foundry Saint Denis"},   -- Saint Denis Saloon
+    {coords = vector3(2640.24, -1228.82, 53.38), blips = 1879260108, blipsName = "Saint Denis Saloon"},   -- Saint Denis Saloon
     -- add more blips to mark the crafting area
 }
 
