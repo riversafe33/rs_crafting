@@ -1,4 +1,7 @@
+# Remove -main the folder should be named just rs_crafting
+
 Dependency
+
 https://github.com/riversafe33/uiprompt
 
 ![foto crafting](https://github.com/user-attachments/assets/359505bb-22f0-42e5-abee-894b3aa084b2)
